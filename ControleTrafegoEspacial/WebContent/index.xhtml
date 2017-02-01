@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+  <h:head>
+        <title>Controle Trafego Espacial</title>
+        <h:outputStylesheet library="css" name="geral.css"/>
+  </h:head>
+  <h:body>
+    <h:form>
+	<p:growl id="msgs" showDetail="true"></p:growl>
+	<p:panelGrid columns="2" style="width: 100%;">
+		<p:panel  style="width: 99%;" header="Escolha os passageiros que irão viajar">
+			<p:pickList styleClass="pickPessoas" style="width: 100%;" id="listPassageiros" value="#{trafego.selectPassagens}" var="passageiro" 
+			             itemValue="#{passageiro}" itemLabel="#{passageiro.name}" showCheckbox="true" responsive="true"
+			             filterMatchMode="contains" converter="primeFacesPickListConverter">
+			
+				<f:facet name="sourceCaption">Pessoas</f:facet>
+				<f:facet name="targetCaption">Passageiros</f:facet>
+			</p:pickList>
+			<br/>
+		</p:panel>
+		
+		<p:panel id="planetas" style="width: 100%;" header="Escolha os planetas de destino">
+			<p:pickList  styleClass="pickPlanetas" style="width: 100%;" id="listPlanetas" value="#{trafego.selectPlanetas}" var="planeta" 
+			             itemValue="#{planeta}" itemLabel="#{planeta.name}" showCheckbox="true" responsive="true"
+			             filterMatchMode="contains" converter="primeFacesPickListConverter">
+			
+				<f:facet name="sourceCaption">Planetas</f:facet>
+				<f:facet name="targetCaption">Planetas Selecionados</f:facet>
+			</p:pickList>	
+		</p:panel>
+	</p:panelGrid>
+	<p:panel style="width: 100%;">
+		<p:commandButton action="#{trafego.gerarPlanoVoo}" update="plano,planetas" value="Gerar Plano de Voo"/>
+	</p:panel>
+	
+	<p:accordionPanel value="#{trafego.listaPlanoVoo}" var="voo" id="plano">
+			<p:tab title="Informações da Nave - Nome: #{voo.aeronave.name} Modelo: #{voo.aeronave.model} Passageiros: #{voo.aeronave.passengers}">
+				<p:panel header="Planeta de Destino">
+					<p:panelGrid columns="2">
+						<h:outputText value="Nome: " />
+		                <h:outputText value="#{voo.planetaDestino.name}" styleClass="outputLabel"/>
+		                
+		                <h:outputText value="Diametro: " />
+		                <h:outputText value="#{voo.planetaDestino.diameter}" styleClass="outputLabel"/>
+		                
+						<h:outputText value="Clima: " />
+		                <h:outputText value="#{voo.planetaDestino.climate}" styleClass="outputLabel"/>
+		                
+		                <h:outputText value="Terreno: " />
+		                <h:outputText value="#{voo.planetaDestino.terrain}" styleClass="outputLabel"/>
+		                
+						<h:outputText value="População: " />
+		                <h:outputText value="#{voo.planetaDestino.population}" styleClass="outputLabel"/>
+		                
+					</p:panelGrid>
+				</p:panel>
+				<p:panel header="Passageiros">
+				    <p:dataList value="#{voo.pessoa}" var="passageiro" type="ordered">
+				        #{passageiro.name}, #{passageiro.gender}
+				    </p:dataList>				
+				</p:panel>
+			</p:tab>
+	</p:accordionPanel>	
+    </h:form>
+  </h:body>
+</html>

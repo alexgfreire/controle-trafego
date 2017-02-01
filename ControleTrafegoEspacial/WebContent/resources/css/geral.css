@@ -1,0 +1,32 @@
+@CHARSET "ISO-8859-1";
+
+
+
+body{
+	background-image: url("../imagens/the-millennium-falcon.jpg");
+}
+
+.hangar{
+	height: 20%;
+	width: 30%;
+}
+
+.gerarPlano{
+	margin-top: 90px;
+}
+
+.listPassageiros{
+	width: 90%;
+	height: 50%;
+}
+
+.pickPlanetas ul{
+	width: 99% !important;
+}
+.pickPlanetas table td{
+	text-align: center !important;
+}
+
+.pickPessoas ul{
+	width: 99% !important;
+}
